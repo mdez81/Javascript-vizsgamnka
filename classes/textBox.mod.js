@@ -60,7 +60,10 @@ export class MyTextBox {
 
             // Pass the data to the alert box
             const customAlertBox = new MyCustomPanel();
+            //this.appointmentBtnElement.disabled = true;
             customAlertBox.showWithDetails(name, profileImage, selectedService, startTime, endTime, hairdresserId);
+            
+
         });
 
 

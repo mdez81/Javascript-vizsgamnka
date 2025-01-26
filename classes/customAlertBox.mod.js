@@ -11,6 +11,8 @@ export default class MyCustomPanel {
 
     show() {
         this.alertElement.style.display = "block";
+        //document.body.style.backgroundColor ="#fff";
+        //document.querySelector("div.site-section.bg-light").style.backgroundColor ="red!impoortant";
     }
 
     hide() {
@@ -18,6 +20,23 @@ export default class MyCustomPanel {
     }
 
     showWithDetails(name, profileImage, selectedService, startTime, endTime, hairdresserId) {
+
+        document.querySelector(".site-section").classList.remove("bg-light");
+        document.body.classList.add("dark-body-background");
+        document.querySelectorAll(".hair-dressers").forEach(element => {
+            element.classList.add("dark-body-background");
+        });
+
+        document.querySelectorAll(".reserve-btn").forEach(element => {
+            element.classList.add("disabled-button");
+        });
+        
+        //classList.add("dark-body-background");
+
+      
+    
+  
+
         this.alertElement.innerHTML = `     
         <div class="popup-content">
             <img src="${profileImage}" alt="Profile Image" class="popup-profile-image">
@@ -47,11 +66,18 @@ export default class MyCustomPanel {
                 cancelButton.addEventListener("click", () => {
                     console.log("Cancel button clicked.");
                     this.hide();
+                    document.body.classList.remove("dark-body-background");
+                    document.querySelectorAll(".hair-dressers").forEach(element => {
+                        element.classList.remove("dark-body-background");
+                    });
+                    document.querySelectorAll(".reserve-btn").forEach(element => {
+                        element.classList.remove("disabled-button");
+                    });
                 });
             } else {
                 console.error("Cancel button not found.");
             }
-        }, 0); // Small delay to ensure DOM is updated
+        }, 1000); // Small delay to ensure DOM is updated
 
         // ✅ Reset previous selections
         this.clearPreviousSelections();
@@ -83,6 +109,7 @@ export default class MyCustomPanel {
         });
 
         this.populateTimeSlots(startTime, endTime);
+        //document.querySelector("div.site-section.bg-light").style.backgroundColor ="red!impoortant";
         this.show();
 
         // ✅ Event listener for booking confirmation

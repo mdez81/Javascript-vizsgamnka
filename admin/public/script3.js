@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <!--<td>
                             <button class="delete-btn" data-id="${appointment.id}">Delete</button>
                             <button class="edit-btn" data-id="${appointment.id}">Edit</button>
-                        </td>
+                        </td>-->
                     `;
                     appointmentsTableBody.appendChild(row);
                 });

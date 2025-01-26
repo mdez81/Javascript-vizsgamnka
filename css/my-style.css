@@ -96,8 +96,6 @@ img.popup-profile-image {
 
 /*time-slots*/
 
-
-
 .custom-alert-box {
   position: fixed;
   top: 50%;
@@ -110,7 +108,6 @@ img.popup-profile-image {
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   display: none;
-  /* Alapértelmezett rejtés */
 }
 
 div.popup-content {
@@ -144,8 +141,6 @@ div.popup-content {
 
 
 /*appointment panel*/
-
-
 
 button {
   padding: 10px;
@@ -195,7 +190,7 @@ button:hover {
 
 /*alert box*/
 
-.alert-container {
+/*.alert-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -205,8 +200,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  /*background-color: darkgray;*/
-}
+}*/
 
 .alert-content {
   width: 450px;
@@ -292,6 +286,14 @@ input[type="tel"] {
   background-color: #095394;
 }
 
+.dark-body-background{
+  background-color: #a9a9a9 !important;
+}
+
+.disabled-button {
+  display: none;
+}
+
 
 
 @media only screen and (max-width: 740px) {
@@ -314,3 +316,4 @@ input[type="tel"] {
     padding: 0;
   }
 }
+
