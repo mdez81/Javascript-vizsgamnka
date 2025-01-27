@@ -9,7 +9,7 @@ const path = require('path');
 const PORT = 3000;
 const JWT_SECRET = 'your_jwt_secret_key';
 
-// Database connection
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -17,13 +17,13 @@ const db = mysql.createConnection({
     database: 'login_register'
 });
 
-// Middleware
+
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' folder
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Routes
+
 app.get('/', (req, res) => {
     res.redirect('/login');
   });
@@ -35,7 +35,7 @@ app.get('/dashboard', (req, res) => res.sendFile(__dirname + '/views/dashboard.h
 app.post('/register', (req, res) => {
     const { username, email, password } = req.body;
 
-    // Hash password
+
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?,?)';
@@ -62,7 +62,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-// Start server
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

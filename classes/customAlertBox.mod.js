@@ -11,8 +11,6 @@ export default class MyCustomPanel {
 
     show() {
         this.alertElement.style.display = "block";
-        //document.body.style.backgroundColor ="#fff";
-        //document.querySelector("div.site-section.bg-light").style.backgroundColor ="red!impoortant";
     }
 
     hide() {
@@ -31,11 +29,6 @@ export default class MyCustomPanel {
             element.classList.add("disabled-button");
         });
         
-        //classList.add("dark-body-background");
-
-      
-    
-  
 
         this.alertElement.innerHTML = `     
         <div class="popup-content">
@@ -59,13 +52,14 @@ export default class MyCustomPanel {
 
         console.log("Selected Hairdresser ID:", hairdresserId);
 
-        // Attach the event listener AFTER setting innerHTML
+
         setTimeout(() => {
             const cancelButton = document.getElementById("cancel-appointment");
             if (cancelButton) {
                 cancelButton.addEventListener("click", () => {
                     console.log("Cancel button clicked.");
                     this.hide();
+                    
                     document.body.classList.remove("dark-body-background");
                     document.querySelectorAll(".hair-dressers").forEach(element => {
                         element.classList.remove("dark-body-background");
@@ -77,12 +71,12 @@ export default class MyCustomPanel {
             } else {
                 console.error("Cancel button not found.");
             }
-        }, 1000); // Small delay to ensure DOM is updated
+        }, 500); 
 
-        // ✅ Reset previous selections
+        
         this.clearPreviousSelections();
 
-        // ✅ Add event listener to update time slots when date is selected
+        
         document.getElementById("appointment-date").addEventListener("change", (event) => {
             const selectedDate = event.target.value;
             const today = new Date().toISOString().split("T")[0];
@@ -90,16 +84,14 @@ export default class MyCustomPanel {
             if (selectedDate < today) {
                 console.warn("Past date selected. Showing custom alert.");
 
-                // Hide appointment panel
                 this.hide();
 
-                // Show custom alert and ensure appointment panel reappears when alert is closed
                 const customAlert = new MyCustomAlertBox();
                 customAlert.show("You cannot book an appointment for a past date!", () => {
-                    this.show(); // Reopen the appointment panel after closing the alert
+                    this.show(); 
                 });
 
-                event.target.value = today; // Reset to today's date
+                event.target.value = today; 
                 return;
             }
 
@@ -109,10 +101,9 @@ export default class MyCustomPanel {
         });
 
         this.populateTimeSlots(startTime, endTime);
-        //document.querySelector("div.site-section.bg-light").style.backgroundColor ="red!impoortant";
         this.show();
 
-        // ✅ Event listener for booking confirmation
+
         document.getElementById("confirm-appointment").addEventListener("click", () => {
             const selectedDate = document.getElementById("appointment-date").value;
             const selectedTimeSlot = document.querySelector(".time-slot.selected");
@@ -132,6 +123,16 @@ export default class MyCustomPanel {
 
                 this.sendAppointmentData(appointmentData);
                 console.log(appointmentData);
+
+
+
+                document.body.classList.remove("dark-body-background");
+                document.querySelectorAll(".hair-dressers").forEach(element => {
+                    element.classList.remove("dark-body-background");
+                });
+                document.querySelectorAll(".reserve-btn").forEach(element => {
+                    element.classList.remove("disabled-button");
+                });
             } else {
                 alert("Please select a date and time slot.");
             }
@@ -144,22 +145,22 @@ export default class MyCustomPanel {
     clearPreviousSelections() {
         const timeSlotsContainer = this.alertElement.querySelector("#time-slots");
         if (timeSlotsContainer) {
-            timeSlotsContainer.innerHTML = ""; // ✅ Clear previous time slots
+            timeSlotsContainer.innerHTML = ""; 
         }
 
         const dateInput = this.alertElement.querySelector("#appointment-date");
         if (dateInput) {
-            dateInput.value = ""; // ✅ Reset date input
+            dateInput.value = ""; 
         }
 
         const customerNameInput = this.alertElement.querySelector("#cust-name");
         if (customerNameInput) {
-            customerNameInput.value = ""; // ✅ Reset name input
+            customerNameInput.value = ""; 
         }
 
         const customerPhoneInput = this.alertElement.querySelector("#cust-phone");
         if (customerPhoneInput) {
-            customerPhoneInput.value = ""; // ✅ Reset phone input
+            customerPhoneInput.value = "";
         }
     }
 
@@ -182,7 +183,6 @@ export default class MyCustomPanel {
                 return response.json();
             })
             .then(appointments => {
-                // Filter appointments by hairdresser ID and date
                 const filteredAppointments = appointments.filter(appointment => {
                     return (
                         String(appointment.hairdresser_id) === String(hairdresserId) &&
@@ -216,7 +216,7 @@ export default class MyCustomPanel {
             return;
         }
 
-        timeSlotsContainer.innerHTML = ""; // Clear previous time slots
+        timeSlotsContainer.innerHTML = ""; 
 
 
 
@@ -229,7 +229,7 @@ export default class MyCustomPanel {
             timeSlotDiv.classList.add("time-slot");
             timeSlotDiv.textContent = timeString;
 
-            // Check if this time slot is booked
+
             if (bookedTimes.includes(timeString)) {
                 timeSlotDiv.classList.add("booked");
                 timeSlotDiv.style.backgroundColor = "red";
@@ -254,13 +254,12 @@ export default class MyCustomPanel {
     }
 
     selectTimeSlot(timeSlotDiv) {
-        // Remove 'selected' from any previously selected time slot
         const selected = this.alertElement.querySelector(".time-slot.selected");
         if (selected) {
             selected.classList.remove("selected");
         }
 
-        // Add 'selected' class only to the clicked one
+   
         if (!timeSlotDiv.classList.contains("booked")) {
             timeSlotDiv.classList.add("selected");
         }
